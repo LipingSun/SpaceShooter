@@ -17,7 +17,14 @@ public class BoomSubject: MonoBehaviour, IBoomSubject
 	{
 		while (boomObservers.Count > 0) 
 		{
-			boomObservers[0].observerUpdate();
+			try
+			{
+				boomObservers[0].observerUpdate();
+			} 
+			catch (MissingReferenceException e)
+			{
+				Debug.Log(e);
+			}
 			this.detach(boomObservers[0]);
 		}
 	}

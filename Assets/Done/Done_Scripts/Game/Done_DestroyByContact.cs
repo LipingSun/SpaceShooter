@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Done_DestroyByContact : MonoBehaviour, IBoomObserver
+public class Done_DestroyByContact : BoomObserver
 {
 	public GameObject explosion;
 	public GameObject playerExplosion;
@@ -58,9 +58,9 @@ public class Done_DestroyByContact : MonoBehaviour, IBoomObserver
 		}
 		Destroy (gameObject);
 	}
-	public void observerUpdate()
+
+	public override void observerUpdate()
 	{
-//				playerController.detach (this);
-				OnTriggerEnter (null);
+		OnTriggerEnter (null);
 	}
 }

@@ -5,19 +5,19 @@ function QuitGame () {
 }
 
 function StartGame () {
-    Application.LoadLevel(1);
+    Application.LoadLevel("PlayerMenu");
 }
 
 function BackToMainMenu()
 {
-    Application.LoadLevel(0);
+    Application.LoadLevel("StartMenu");
 }
 
 function OpenReadMe()
 {
-    Application.LoadLevel(2);
+    Application.LoadLevel("ReadMe");
 }
 
 function GoToQuitConfirmation(){
-    Application.LoadLevel(3);
+    Application.LoadLevel("QuitConfirmation");
 }

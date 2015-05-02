@@ -10,6 +10,7 @@ public class Done_GameController : MonoBehaviour
 	public float startWait;
 	public float waveWait;
 	public static int boom = 3;
+	public static int finalScore;
 
 	public GUIText scoreText;
 	public GUIText restartText;
@@ -80,7 +81,9 @@ public class Done_GameController : MonoBehaviour
 	
 	public void GameOver ()
 	{
+		finalScore = score;
 		gameOverText.text = "Game Over!";
 		gameOver = true;
+		Application.LoadLevel ("StartMenu");
 	}
 }
