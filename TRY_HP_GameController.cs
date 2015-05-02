@@ -9,21 +9,22 @@ public class Done_GameController : MonoBehaviour
 	public float spawnWait;
 	public float startWait;
 	public float waveWait;
-	public static int boom = 3;
 
+	public GUIText hpText;
 	public GUIText scoreText;
 	public GUIText restartText;
 	public GUIText gameOverText;
-	public GUIText boomText;
 	
 	private bool gameOver;
 	private bool restart;
+	private int HP;
 	private int score;
-
 	
 	void Start ()
 	{
 		gameOver = false;
+		HP = 5;
+		hpText.text = "HP: " + HP.ToString();
 		restart = false;
 		restartText.text = "";
 		gameOverText.text = "";
@@ -80,7 +81,12 @@ public class Done_GameController : MonoBehaviour
 	
 	public void GameOver ()
 	{
-		gameOverText.text = "Game Over!";
-		gameOver = true;
+		HP--;
+		hpText.text = "HP: " + HP.ToString();
+		if (HP == 0)
+		{
+			gameOverText.text = "Game Over!";
+			gameOver = true;
+		}
 	}
 }

@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Done_DestroyByContact : MonoBehaviour, IBoomObserver
+public class Done_DestroyByContact : MonoBehaviour
 {
 	public GameObject explosion;
 	public GameObject playerExplosion;
 	public int scoreValue;
 	private Done_GameController gameController;
-	private Done_PlayerController playerController;
 
 	void Start ()
 	{
@@ -20,22 +19,11 @@ public class Done_DestroyByContact : MonoBehaviour, IBoomObserver
 		{
 			Debug.Log ("Cannot find 'GameController' script");
 		}
-
-		GameObject playerObject = GameObject.FindGameObjectWithTag ("Player");
-		if (playerObject != null)
-		{
-			playerController = playerObject.GetComponent <Done_PlayerController>();
-		}
-		if (playerController == null)
-		{
-			Debug.Log ("Cannot find 'PlayerController' script");
-		}
-		playerController.attach (this);
 	}
 
 	void OnTriggerEnter (Collider other)
 	{
-		if (other != null && (other.tag == "Boundary" || other.tag == "Enemy"))
+		if (other.tag == "Boundary" || other.tag == "Enemy")
 		{
 			return;
 		}
@@ -45,22 +33,14 @@ public class Done_DestroyByContact : MonoBehaviour, IBoomObserver
 			Instantiate(explosion, transform.position, transform.rotation);
 		}
 
-		if (other != null && other.tag == "Player")
+		if (other.tag == "Player")
 		{
 			Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
 			gameController.GameOver();
 		}
 		
 		gameController.AddScore(scoreValue);
-		if (other != null) 
-		{
-			Destroy (other.gameObject);
-		}
+		// Destroy (other.gameObject);
 		Destroy (gameObject);
-	}
-	public void observerUpdate()
-	{
-//				playerController.detach (this);
-				OnTriggerEnter (null);
 	}
 }

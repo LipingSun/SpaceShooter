@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Done_GameController : MonoBehaviour
+public interface IScoreObserver
+{
+	void updateScore (IScoreNotifier obj);
+}
+
+
+public class Done_GameController : MonoBehaviour, IScoreObserver
 {
 	public GameObject[] hazards;
 	public Vector3 spawnValues;
@@ -9,17 +16,15 @@ public class Done_GameController : MonoBehaviour
 	public float spawnWait;
 	public float startWait;
 	public float waveWait;
-	public static int boom = 3;
-
+	
 	public GUIText scoreText;
 	public GUIText restartText;
 	public GUIText gameOverText;
-	public GUIText boomText;
 	
 	private bool gameOver;
 	private bool restart;
 	private int score;
-
+	public static int finalScore;
 	
 	void Start ()
 	{
@@ -28,7 +33,7 @@ public class Done_GameController : MonoBehaviour
 		restartText.text = "";
 		gameOverText.text = "";
 		score = 0;
-		UpdateScore ();
+		UpdateScoreText ();
 		StartCoroutine (SpawnWaves ());
 	}
 	
@@ -67,20 +72,28 @@ public class Done_GameController : MonoBehaviour
 		}
 	}
 	
-	public void AddScore (int newScoreValue)
+	public void updateScore(IScoreNotifier obj)
 	{
-		score += newScoreValue;
-		UpdateScore ();
+		this.score += obj.getScore();
+		UpdateScoreText ();
 	}
 	
-	void UpdateScore ()
+	//	public void AddScore (int newScoreValue)
+	//	{
+	//		score += newScoreValue;
+	//		UpdateScoreText ();
+	//	}
+	
+	void UpdateScoreText ()
 	{
 		scoreText.text = "Score: " + score;
 	}
 	
 	public void GameOver ()
 	{
+		finalScore = score;
 		gameOverText.text = "Game Over!";
 		gameOver = true;
+		Application.LoadLevel (1);
 	}
 }

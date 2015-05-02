@@ -7,7 +7,7 @@ public class Done_Boundary
 	public float xMin, xMax, zMin, zMax;
 }
 
-public class Done_PlayerController : MonoBehaviour
+public class Done_PlayerController : BoomSubject
 {
 	public float speed;
 	public float tilt;
@@ -26,6 +26,8 @@ public class Done_PlayerController : MonoBehaviour
 			nextFire = Time.time + fireRate;
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 			audio.Play ();
+			this.notifyObservers();
+			Done_GameController.boom--;
 		}
 	}
 
