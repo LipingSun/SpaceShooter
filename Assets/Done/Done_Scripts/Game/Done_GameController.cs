@@ -9,13 +9,13 @@ public class Done_GameController : MonoBehaviour
 	public float spawnWait;
 	public float startWait;
 	public float waveWait;
-	public static int boom = 3;
+	public float time;
 	public static int finalScore;
+	public GameObject bomb;
 
 	public GUIText scoreText;
 	public GUIText restartText;
 	public GUIText gameOverText;
-	public GUIText boomText;
 	
 	private bool gameOver;
 	private bool restart;
@@ -31,6 +31,7 @@ public class Done_GameController : MonoBehaviour
 		score = 0;
 		UpdateScore ();
 		StartCoroutine (SpawnWaves ());
+		StartCoroutine (SpawnBonus ());
 	}
 	
 	void Update ()
@@ -40,6 +41,10 @@ public class Done_GameController : MonoBehaviour
 			if (Input.GetKeyDown (KeyCode.R))
 			{
 				Application.LoadLevel (Application.loadedLevel);
+			}
+			if (Input.GetKeyDown (KeyCode.B))
+			{
+				Application.LoadLevel ("PlayerCreate");
 			}
 		}
 	}
@@ -61,7 +66,25 @@ public class Done_GameController : MonoBehaviour
 			
 			if (gameOver)
 			{
-				restartText.text = "Press 'R' for Restart";
+//				restartText.text = "Press 'R' for Restart";
+				restartText.text = "Press 'B' for Return";
+				restart = true;
+				break;
+			}
+		}
+	}
+
+	IEnumerator SpawnBonus ()
+	{
+		while(true){
+			yield return new WaitForSeconds (time);
+			Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+			Quaternion spawnRotation = Quaternion.identity;
+			Instantiate (bomb, spawnPosition, spawnRotation);
+			if (gameOver)
+			{
+//				restartText.text = "Press 'R' for Restart";
+				restartText.text = "Press 'B' for Return";
 				restart = true;
 				break;
 			}
@@ -78,12 +101,12 @@ public class Done_GameController : MonoBehaviour
 	{
 		scoreText.text = "Score: " + score;
 	}
-	
+
 	public void GameOver ()
 	{
 		finalScore = score;
 		gameOverText.text = "Game Over!";
 		gameOver = true;
-		Application.LoadLevel ("StartMenu");
 	}
+	
 }

@@ -16,7 +16,8 @@ public class PlayerResultImpl : MonoBehaviour {
 
 	public PlayerIteratorImpl createIterator()
 	{
-		return new PlayerIteratorImpl(PlayerList);
+		PlayerIteratorImpl playerIterator1 = new PlayerIteratorImpl (PlayerList);
+		return playerIterator1;
 	}
 
 }

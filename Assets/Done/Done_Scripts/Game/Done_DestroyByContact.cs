@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Done_DestroyByContact : BoomObserver
+public class Done_DestroyByContact : BombObserver
 {
 	public GameObject explosion;
 	public GameObject playerExplosion;

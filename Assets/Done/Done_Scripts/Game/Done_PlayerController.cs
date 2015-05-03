@@ -7,7 +7,7 @@ public class Done_Boundary
 	public float xMin, xMax, zMin, zMax;
 }
 
-public class Done_PlayerController : BoomSubject
+public class Done_PlayerController : BombSubject
 {
 	public float speed;
 	public float tilt;
@@ -18,7 +18,15 @@ public class Done_PlayerController : BoomSubject
 	public float fireRate;
 	 
 	private float nextFire;
-	
+	public static int bomb;
+	public GUIText bombText;
+
+	void Start ()
+	{
+		bomb = 10;
+		UpdateBomb ();
+	}
+
 	void Update ()
 	{
 		if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire) 
@@ -26,8 +34,12 @@ public class Done_PlayerController : BoomSubject
 			nextFire = Time.time + fireRate;
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 			audio.Play ();
+		}
+
+		if(Input.GetKeyUp(KeyCode.LeftAlt) && bomb > 0 && Time.time > nextFire){
 			this.notifyObservers();
-			Done_GameController.boom--;
+			nextFire = Time.time+fireRate * 4;
+			MinusBomb();
 		}
 	}
 
@@ -47,5 +59,27 @@ public class Done_PlayerController : BoomSubject
 		);
 		
 		rigidbody.rotation = Quaternion.Euler (0.0f, 0.0f, rigidbody.velocity.x * -tilt);
+	}
+	
+	public void AddBomb ()
+	{
+		bomb = bomb + 1;
+		UpdateBomb ();
+	}
+
+	public int GetBomb()
+	{
+		return bomb;
+	}
+	
+	public void MinusBomb ()
+	{
+		bomb = bomb - 1;
+		UpdateBomb ();
+	}
+	
+	void UpdateBomb ()
+	{
+		bombText.text = "Bomb: " + bomb;
 	}
 }

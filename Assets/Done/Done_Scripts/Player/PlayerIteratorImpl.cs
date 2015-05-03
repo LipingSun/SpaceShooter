@@ -6,10 +6,9 @@ using System.Collections.Generic;
 public interface Player_Iterator {
 	 Player first();
 	 Player next();
-	 //Player currentPlayer();
+	 Player currentPlayer();
 	 bool isDone();
-	
-	
+	 bool isEmpty();
 }
 public class PlayerIteratorImpl : MonoBehaviour, Player_Iterator {
 	private List<Player> PlayerList;

@@ -5,7 +5,7 @@ function QuitGame () {
 }
 
 function StartGame () {
-    Application.LoadLevel("PlayerMenu");
+    Application.LoadLevel("PlayerCreate");
 }
 
 function BackToMainMenu()
