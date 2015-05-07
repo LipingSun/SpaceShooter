@@ -4,17 +4,17 @@ using System.Collections;
 public class Player : MonoBehaviour {
 
 	// Use this for initialization
-	private string name;
+	private string playerName;
 	private int score=0;
 
 	public void setName(string username)
 	{
-		name = username;
+		playerName = username;
 	}
 
 	public string getName()
 	{
-		return name;
+		return playerName;
 	}
 
 	public void setScore(int newScore)

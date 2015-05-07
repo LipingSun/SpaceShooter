@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class BombSubject: MonoBehaviour, IBombSubject
 {
 	private List<IBombObserver> bombObservers = new List<IBombObserver>();
+
 	public void attach(IBombObserver obj)
 	{
 		bombObservers.Add (obj);

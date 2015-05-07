@@ -18,7 +18,9 @@ public class GameState : MonoBehaviour, VirtualGameState
 	VirtualGameManager vg_manager;
 
 	public GameState(VirtualGameManager vgm)
-	{vg_manager = vgm;}
+	{
+		vg_manager = vgm;
+	}
 
 	// Provide the default implementation of handling error events
 	public virtual void goToStartMenu()

@@ -25,17 +25,17 @@ public class Done_DestroyByContact : BombObserver
 		if (playerObject != null)
 		{
 			playerController = playerObject.GetComponent <Done_PlayerController>();
+			playerController.attach (this);
 		}
 		if (playerController == null)
 		{
 			Debug.Log ("Cannot find 'PlayerController' script");
 		}
-		playerController.attach (this);
 	}
 
 	void OnTriggerEnter (Collider other)
 	{
-		if (other != null && (other.tag == "Boundary" || other.tag == "Enemy"))
+		if (other != null && (other.tag == "Boundary" || other.tag == "Enemy" || other.tag == "BombSupply"))
 		{
 			return;
 		}
@@ -45,18 +45,23 @@ public class Done_DestroyByContact : BombObserver
 			Instantiate(explosion, transform.position, transform.rotation);
 		}
 
-		if (other != null && other.tag == "Player")
+		if (other != null && other.tag == "Player") 
 		{
-			Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
-			gameController.GameOver();
-		}
-		
-		gameController.AddScore(scoreValue);
-		if (other != null) 
+			Instantiate (playerExplosion, other.transform.position, other.transform.rotation);
+			playerController.HP --;
+			playerController.UpdateHP ();
+			if (playerController.HP <= 0)
+			{
+				Destroy (other.gameObject);
+				gameController.GameOver ();
+			}
+		} 
+		if (other != null && other.tag != "Player") 
 		{
 			Destroy (other.gameObject);
 		}
 		Destroy (gameObject);
+		gameController.AddScore(scoreValue);
 	}
 
 	public override void observerUpdate()

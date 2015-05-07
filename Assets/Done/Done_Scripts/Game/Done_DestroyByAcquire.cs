@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DestroyByAcquire : MonoBehaviour {
+public class Done_DestroyByAcquire : MonoBehaviour {
 
 	private Done_PlayerController playerController;
 
 	void Start () {
 	
-		GameObject playerControllerObject = GameObject.FindGameObjectWithTag ("PlayerController");
+		GameObject playerControllerObject = GameObject.FindGameObjectWithTag ("Player");
 		if (playerControllerObject != null)
 		{
 			playerController = playerControllerObject.GetComponent <Done_PlayerController>();

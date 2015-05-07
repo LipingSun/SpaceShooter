@@ -16,15 +16,18 @@ public class Done_PlayerController : BombSubject
 	public GameObject shot;
 	public Transform shotSpawn;
 	public float fireRate;
+	public int HP;
 	 
 	private float nextFire;
 	public static int bomb;
 	public GUIText bombText;
+	public GUIText HPText;
 
 	void Start ()
 	{
 		bomb = 10;
 		UpdateBomb ();
+		UpdateHP ();
 	}
 
 	void Update ()
@@ -78,8 +81,13 @@ public class Done_PlayerController : BombSubject
 		UpdateBomb ();
 	}
 	
-	void UpdateBomb ()
+	public void UpdateBomb ()
 	{
 		bombText.text = "Bomb: " + bomb;
+	}
+
+	public void UpdateHP ()
+	{
+		HPText.text = "HP: " + HP.ToString();
 	}
 }
